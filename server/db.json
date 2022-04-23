@@ -1,0 +1,25 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Kuddus",
+      "email": "kudd@gmail.com",
+      "year": "01838947346",
+      "fee": 5200
+    },
+    {
+      "name": "Antu",
+      "email": "Kuddus@gmail.com",
+      "year": "01988947346",
+      "fee": 6200,
+      "id": 2
+    },
+    {
+      "id": 3,
+      "name": "Shamim",
+      "email": "shamim@gmail.com",
+      "year": "01838947346",
+      "fee": 5877
+    }
+  ]
+}

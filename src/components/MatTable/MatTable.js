@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { useState } from 'react';
 import tableIcons from './IconProvider';
 
 const MatTable = () => {
-  const [tableData, setTAbleData] = useState([]);
+  const url = 'http://localhost:4000/students';
+  const [data, setData] = useState([]);
 
-  const data = [
-    { name: 'Kuddus', age: 23, phone: '01838947346' },
-    { name: 'Antu', age: 22, phone: '00000004564' },
-    { name: 'Najim', age: 45, phone: '14564874454' },
-    { name: 'Shamim', age: 26, phone: '145648745487' },
-  ];
+  useEffect(() => {
+    getStudents();
+  }, []);
+
+  const getStudents = () => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((resp) => setData(resp));
+  };
 
   const columns = [
     { title: 'Name', field: 'name' },
-    { title: 'Age', field: 'age' },
-    { title: 'phone', field: 'phone' },
+    { title: 'Email', field: 'email' },
+    { title: 'Year', field: 'year' },
+    { title: 'Fee', field: 'fee' },
   ];
   return (
     <div>
+      <h1 align='center'>CRUD on Material</h1>
       <MaterialTable
         icons={tableIcons}
         columns={columns}
         data={data}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise((resolve, reject) => {
+              //the api calls
+              console.log(newData);
+            }),
+        }}
         actions={[
           {
             icon: tableIcons.Delete,
@@ -38,21 +51,21 @@ const MatTable = () => {
             onClick: (event) => alert('You want to add a new row '),
           },
         ]}
-        components={{
-          Action: (props) => (
-            <button
-              style={{
-                backgroundColor: 'tomato',
-                border: 'none',
-                borderRadius: '3px',
-                padding: '3px 5px',
-              }}
-              onClick={(event) => props.action.onClick(event, props.data)}
-            >
-              Delete
-            </button>
-          ),
-        }}
+        // components={{
+        //   Action: (props) => (
+        //     <button
+        //       style={{
+        //         backgroundColor: 'tomato',
+        //         border: 'none',
+        //         borderRadius: '3px',
+        //         padding: '3px 5px',
+        //       }}
+        //       onClick={(event) => props.action.onClick(event, props.data)}
+        //     >
+        //       Delete
+        //     </button>
+        //   ),
+        // }}
         options={{
           exportButton: true,
         }}
